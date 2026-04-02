@@ -1,106 +1,142 @@
-# Tmux & Neovim Configuration
+# Tmux 設定檔
 
-This is a personal Tmux and Neovim configuration that creates a cohesive and visually appealing terminal experience. The style is inspired by the Catppuccin theme and a desire for a clean, modern, and functional setup.
+個人的 Tmux 設定檔，基於 Catppuccin 主題打造簡潔、現代且實用的終端體驗。
 
-This configuration is based on the setup discussed in [this GitHub discussion](https://github.com/catppuccin/tmux/discussions/317#discussioncomment-11064512).
+此設定檔參考了 [這個 GitHub 討論串](https://github.com/catppuccin/tmux/discussions/317#discussioncomment-11064512)。
 
-## Screenshot
+## 截圖
 
-![Screenshot of the Tmux and Neovim setup](Screenshot.png)
+![Tmux 設定截圖](Screenshot.png)
 
-## Features
+## 功能特色
 
-### Tmux
+### 主題配色
 
-*   **Catppuccin Theme:** The configuration uses the Catppuccin color palette for a consistent look and feel. The colors are defined in `colors.conf`.
-*   **Custom Status Bar:** The status bar is customized to show important information at a glance, including:
-    *   Session name
-    *   Current command
-    *   Current path
-    *   Zoom status
-    *   Memory and CPU usage
-    *   Battery percentage
-*   **Icon-Based Window Status:** Instead of text, the window status uses icons to represent the current application running in each window (e.g., zsh, nvim, git, etc.).
-*   **Custom Keybindings:** The prefix key is set to `` ` `` (backtick) for easier access. Keybindings are set up for intuitive pane navigation, resizing, and window management.
-*   **TPM (Tmux Plugin Manager):** The configuration uses TPM to manage Tmux plugins. The following plugins are included:
-    *   `tmux-plugins/tpm`
-    *   `tmux-plugins/tmux-battery`
-    *   `tmux-plugins/tmux-cpu`
-    *   `thewtex/tmux-mem-cpu-load`
-    *   `laktak/extrakto`
+*   使用 Catppuccin (Mocha) 色票，色彩定義於 `colors.conf`。
 
-### Neovim (Lualine)
+### 自訂狀態列
 
-The `lualine.lua` file configures the Lualine plugin for Neovim to match the Tmux theme.
+狀態列位於頂部，顯示以下資訊：
 
-*   **Catppuccin Colors:** The Lualine theme uses the same Catppuccin colors as the Tmux configuration.
-*   **Custom Components:** The Lualine status bar is customized to include:
-    *   Mode indicator
-    *   Git branch
-    *   File information (icon, name, and status)
-    *   Buffer list
-    *   File format, encoding, and size
-    *   Diagnostics
-    *   Progress and location
-*   **Custom Separators:** The status bar uses custom separators for a clean and modern look.
+**左側：**
+*   工作階段名稱（按下 prefix 時高亮顯示）
+*   當前執行的指令
+*   當前路徑
+*   縮放狀態
 
-## Installation
+**右側：**
+*   CPU 使用率
+*   記憶體使用率
+*   主要 IP 位址
+*   電池電量（低於 20% 時高亮警示）
+*   日期與時間
 
-1.  **Clone the repository:**
+### 視窗顯示
+
+*   使用編號模式顯示視窗（自動重新命名）
+*   視窗索引從 1 開始
+
+### 快捷鍵
+
+| 快捷鍵 | 功能 |
+| :--- | :--- |
+| `prefix` + `r` | 重新載入設定檔 |
+| `prefix` + `-` | 垂直分割面板 |
+| `prefix` + `\` | 水平分割面板 |
+| `prefix` + `v` | 進入複製模式 |
+| `v`（複製模式中） | 開始選取 |
+| `y`（複製模式中） | 複製選取內容 |
+
+### 其他設定
+
+*   啟用滑鼠支援
+*   啟用 passthrough 模式
+*   監控視窗活動
+*   使用 vi 模式按鍵
+*   256 色終端支援
+*   escape-time 設為 0（適合 Neovim 使用者）
+
+### 外掛（透過 TPM 管理）
+
+TPM 會在首次啟動時自動安裝。使用的外掛如下：
+
+| 外掛 | 用途 |
+| :--- | :--- |
+| `tmux-plugins/tpm` | Tmux 外掛管理器 |
+| `tmux-plugins/tmux-battery` | 電池狀態顯示 |
+| `tmux-plugins/tmux-cpu` | CPU 使用率顯示 |
+| `thewtex/tmux-mem-cpu-load` | 記憶體使用率顯示 |
+| `laktak/extrakto` | 文字擷取工具 |
+| `christoomey/vim-tmux-navigator` | Vim 與 Tmux 間無縫切換面板 |
+| `dreknix/tmux-primary-ip` | 主要 IP 位址顯示 |
+
+## 安裝
+
+1.  **複製專案：**
     ```bash
-    git clone https://github.com/your-username/your-repo-name.git ~/.config/tmux
+    git clone git@github.com:vulcanshen/primary-tmux.git ~/.config/tmux
     ```
-2.  **Install TPM (Tmux Plugin Manager):**
+2.  **啟動 Tmux**，TPM 會自動安裝。或手動安裝：
     ```bash
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     ```
-3.  **Install the plugins:**
-    *   Start Tmux.
-    *   Press `prefix` + `I` (capital I, as in **I**nstall) to fetch the plugins.
-4.  **Install Neovim and the necessary plugins:**
-    *   Install Neovim.
-    *   Install a plugin manager for Neovim (e.g., Packer, lazy.nvim).
-    *   Add the `nvim-lualine/lualine.nvim` plugin to your Neovim configuration.
+3.  **安裝外掛：**
+    *   啟動 Tmux 後按下 `prefix` + `I`（大寫 I）來安裝外掛。
 
-## Usage
+## Neovim (Lualine)
 
-*   **Reload Tmux configuration:** `prefix` + `r`
-*   **Split panes:**
-    *   `prefix` + `\` for a horizontal split.
-    *   `prefix` + `/` for a vertical split.
-*   **Navigate panes:** `prefix` + `h`/`j`/`k`/`l`
-*   **Resize panes:** `prefix` + `^h`/`^j`/`^k`/`^l`
-*   **Copy mode:** `prefix` + `v`
+本專案包含 `lualine.lua` 設定檔，用於配置 Neovim 的 Lualine 狀態列外掛，使其與 Tmux 主題風格一致。
 
-## Color Palette
+### 安裝方式
 
-The color palette is defined in `colors.conf` and is based on the Catppuccin theme.
+將 `lualine.lua` 複製到 LazyVim 的外掛目錄下：
 
-| Color Name  | Hex Code  |
-| :---------- | :-------- |
-| Rosewater   | `#f2d5cf` |
-| Flamingo    | `#eebebe` |
-| Pink        | `#f4b8e4` |
-| Mauve       | `#ca9ee6` |
-| Red         | `#e78284` |
-| Maroon      | `#ea999c` |
-| Peach       | `#ef9f76` |
-| Yellow      | `#e5c890` |
-| Green       | `#a6d189` |
-| Teal        | `#81c8be` |
-| Sky         | `#99d1db` |
-| Sapphire    | `#85c1dc` |
-| Blue        | `#8caaee` |
-| Lavender    | `#babbf1` |
-| Text        | `#c6d0f5` |
-| Subtext1    | `#b5bfe2` |
-| Subtext0    | `#a5adce` |
-| Overlay2    | `#949cbb` |
-| Overlay1    | `#838ba7` |
-| Overlay0    | `#737994` |
-| Surface2    | `#626880` |
-| Surface1    | `#51576d` |
-| Surface0    | `#414559` |
-| Base        | `#303446` |
-| Mantle      | `#292c3c` |
-| Crust       | `#232634` |
+```bash
+cp ~/.config/tmux/lualine.lua ~/.config/nvim/lua/plugins/lualine.lua
+```
+
+### 功能特色
+
+*   **Catppuccin 配色：** 使用與 Tmux 相同的 Catppuccin mocha 色票
+*   **自訂元件：** 狀態列包含以下資訊：
+    *   模式指示器
+    *   Git 分支與差異狀態
+    *   檔案圖示、名稱與狀態
+    *   緩衝區列表（目前/總計）
+    *   檔案格式、編碼與大小
+    *   診斷資訊（錯誤、警告、提示）
+    *   進度與游標位置
+*   **自訂分隔符號：** 使用 `|` 作為分隔符號，呈現簡潔現代的外觀
+
+## 色票
+
+色票定義於 `colors.conf`，基於 Catppuccin Mocha 主題。
+
+| 色彩名稱 | 色碼 |
+| :--- | :--- |
+| Rosewater | `#f5e0dc` |
+| Flamingo | `#f2cdcd` |
+| Pink | `#f5c2e7` |
+| Mauve | `#cba6f7` |
+| Red | `#f38ba8` |
+| Maroon | `#eba0ac` |
+| Peach | `#fab387` |
+| Yellow | `#f9e2af` |
+| Green | `#a6e3a1` |
+| Teal | `#94e2d5` |
+| Sky | `#89dceb` |
+| Sapphire | `#74c7ec` |
+| Blue | `#89b4fa` |
+| Lavender | `#b4befe` |
+| Text | `#cdd6f4` |
+| Subtext1 | `#bac2de` |
+| Subtext0 | `#a6adc8` |
+| Overlay2 | `#9399b2` |
+| Overlay1 | `#7f849c` |
+| Overlay0 | `#6c7086` |
+| Surface2 | `#585b70` |
+| Surface1 | `#45475a` |
+| Surface0 | `#313244` |
+| Base | `#1e1e2e` |
+| Mantle | `#181825` |
+| Crust | `#11111b` |
