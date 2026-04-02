@@ -74,7 +74,7 @@ TPM 會在首次啟動時自動安裝。使用的外掛如下：
 
 1.  **複製專案：**
     ```bash
-    git clone git@github.com:vulcanshen/primary-tmux.git ~/.config/tmux
+    git clone https://github.com/vulcanshen/primary-tmux.git ~/.config/tmux
     ```
 2.  **啟動 Tmux**，TPM 會自動安裝。或手動安裝：
     ```bash
@@ -140,3 +140,7 @@ cp ~/.config/tmux/lualine.lua ~/.config/nvim/lua/plugins/lualine.lua
 | Base | `#1e1e2e` |
 | Mantle | `#181825` |
 | Crust | `#11111b` |
+
+## Credits
+
+Inspired by / based on [naivecynics](https://github.com/naivecynics/primary-tmux)
