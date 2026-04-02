@@ -108,6 +108,45 @@ cp ~/.config/tmux/lualine.lua ~/.config/nvim/lua/plugins/lualine.lua
     *   進度與游標位置
 *   **自訂分隔符號：** 使用 `|` 作為分隔符號，呈現簡潔現代的外觀
 
+## Neovim (vim-tmux-navigator)
+
+搭配 `christoomey/vim-tmux-navigator` 外掛，可以在 Tmux 與 Neovim 之間使用 `Ctrl` + `h/j/k/l` 無縫切換面板。
+
+### Neovim 端設定
+
+將以下設定檔放置於 LazyVim 的外掛目錄下 `~/.config/nvim/lua/plugins/vim-tmux-navigator.lua`：
+
+```lua
+return {
+  "christoomey/vim-tmux-navigator",
+  cmd = {
+    "TmuxNavigateLeft",
+    "TmuxNavigateDown",
+    "TmuxNavigateUp",
+    "TmuxNavigateRight",
+    "TmuxNavigatePrevious",
+    "TmuxNavigatorProcessList",
+  },
+  keys = {
+    { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+    { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+    { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+    { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+    { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+  },
+}
+```
+
+### 快捷鍵對照
+
+| 快捷鍵 | 功能 |
+| :--- | :--- |
+| `Ctrl` + `h` | 切換到左方面板 |
+| `Ctrl` + `j` | 切換到下方面板 |
+| `Ctrl` + `k` | 切換到上方面板 |
+| `Ctrl` + `l` | 切換到右方面板 |
+| `Ctrl` + `\` | 切換到上一個面板 |
+
 ## 色票
 
 色票定義於 `colors.conf`，基於 Catppuccin Mocha 主題。
