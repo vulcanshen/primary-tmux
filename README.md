@@ -36,6 +36,23 @@
 *   使用編號模式顯示視窗（自動重新命名）
 *   視窗索引從 1 開始
 
+### Prefix 鍵
+
+本設定將 prefix 改為 `` ` ``（backtick），取代預設的 `Ctrl+b`，操作更順手。
+
+| 按鍵 | 功能 |
+| :--- | :--- |
+| `` ` `` | prefix 鍵 |
+| `` ` `` `` ` `` | 輸入 literal backtick 字元 |
+| `` ` `` + `p` | 切換到上一個使用過的視窗（last-window） |
+
+> **如果想恢復預設的 `Ctrl+b`：** 將 `tmux.conf` 中以下三行註解掉即可：
+> ```bash
+> # set -g prefix `
+> # unbind C-b
+> # bind ` send-prefix
+> ```
+
 ### 快捷鍵
 
 | 快捷鍵 | 功能 |
