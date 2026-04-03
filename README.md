@@ -6,7 +6,7 @@
 
 ## 截圖
 
-![Tmux 設定截圖](Screenshot.png?v=20260403)
+![Tmux 設定截圖](Screenshot.png?v=202604031304)
 
 ## 功能特色
 
